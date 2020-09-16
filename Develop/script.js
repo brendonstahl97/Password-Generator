@@ -50,19 +50,9 @@ function generatePassword() {
     charPool = charPool.concat(lettersDown);
   }
 
-
   //create password from eligable chars
-  //password = buildPassword();
+  password = buildPassword();
 
-  for (var i = 0; i < numChar - 1; i++) {
-    var randomIndex = Math.floor(Math.random() * charPool.length)
-
-    var tempChar = charPool[randomIndex];
-    password = password.concat(tempChar);
-  }
-
-
-  
   return (password);
 }
 
@@ -76,65 +66,68 @@ function getCriteria() {
 }
 
 
+function buildPassword() {
+  var pass = "";
 
+  for (var i = 0; i < numChar - 1; i++) {
+    var randomIndex = Math.floor(Math.random() * charPool.length)
 
+    var tempChar = charPool[randomIndex];
+    pass = pass.concat(tempChar);
 
+  }
 
+  ensureCriteria(pass);
+  return (pass);
+}
 
+//ensures all criteria are met
+function ensureCriteria(pass) {
+  var spec = false;
+  var num = false;
+  var up = false;
+  var down = false;
 
+  for (let i = 0; i < pass.length - 1; i++) {
 
+    if (includeSpecial && spec !== true) {
+      if (specialChars.includes(pass.charAt(i))) {
+        spec = true;
+      }
+    } else {
+      spec = true;
+    }
 
+    if (includeNumber && num !== true) {
+      if (nums.includes(pass.charAt(i))) {
+        num = true;
+      }
+    } else {
+      num = true;
+    }
 
+    if (includeUpper && up !== true) {
+      if (lettersUp.includes(pass.charAt(i))) {
+        up = true;
+      }
+    } else {
+      up = true;
+    }
 
+    if (includeLower && down !== true) {
+      if (lettersDown.includes(pass.charAt(i))) {
+        down = true;
+      }
+    } else {
+      down = true;
+    }
+  }
 
+  if (spec && num && up && down) {
+    return;
+  } else {
+    console.log("fail");
+    buildPassword();
+  }
+}
 
-//   //ensures all criteria are met
-//   function ensureCriteria(pass) {
-//     var spec = false;
-//     var num = false;
-//     var up = false;
-//     var down = false;
-
-//     for (let i = 0; i < pass.length - 1; i++) {
-
-//       if (includeSpecial && spec !== true) {
-//         if (specialChars.includes(pass.charAt(i))) {
-//           spec = true;
-//         }
-//       } else {
-//         spec = true;
-//       }
-
-//       if (includeNumber && num !== true) {
-//         if (nums.includes(pass.charAt(i))) {
-//           num = true;
-//         }
-//       } else {
-//         num = true;
-//       }
-
-//       if (includeUpper && up !== true) {
-//         if (lettersUp.includes(pass.charAt(i))) {
-//           up = true;
-//         }
-//       } else {
-//         up = true;
-//       }
-
-//       if (includeLower && down !== true) {
-//         if (lettersDown.includes(pass.charAt(i))) {
-//           down = true;
-//         }
-//       } else {
-//         down = true;
-//       }
-//     }
-
-//     if (spec && num && up && down) {
-//       return;
-//     } else {
-//       console.log("fail");
-//       buildPassword();
-//     }
-//   }
-// }
