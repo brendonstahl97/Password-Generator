@@ -48,6 +48,12 @@ function generatePassword() {
 //determine criteria for password creation
 function getCriteria() {
   numChar = prompt("How many characters would you like the password to be? (8-128)");
+
+  if (8 > numChar || numChar > 128) {
+    alert("Must be between 8 and 128!!!");
+    return getCriteria();
+  }
+  
   includeSpecial = confirm("Include special characters?");
   includeNumber = confirm("Include numbers?");
   includeUpper = confirm("Include uppercase letters?");
@@ -92,8 +98,12 @@ function buildPassword() {
 
   }
 
-  ensureCriteria(pass);
-  return (pass);
+  if (ensureCriteria(pass)) {
+    return (pass);  
+  } else {
+    return  buildPassword();
+  }
+  
 }
 
 // --------------------------------------------------------------------------------------
@@ -105,7 +115,7 @@ function ensureCriteria(pass) {
   var up = false;
   var down = false;
 
-  for (let i = 0; i < pass.length - 1; i++) {
+  for (let i = 0; i < pass.length; i++) {
 
     if (includeSpecial && spec !== true) {
       if (specialChars.includes(pass.charAt(i))) {
@@ -140,11 +150,14 @@ function ensureCriteria(pass) {
     }
   }
 
-  if (spec && num && up && down) {
-    return;
+  if (!spec || !num || !up || !down) {
+    console.log("Fail");
+    console.log(pass);
+    return false;
+    //buildPassword();
   } else {
-    console.log("fail");
-    buildPassword();
+    return true;
   }
+
 }
 
