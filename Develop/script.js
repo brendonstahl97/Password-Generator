@@ -22,18 +22,45 @@ function writePassword() {
 
 }
 
+// ---------------------------------------------------------------------------------------
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+// ---------------------------------------------------------------------------------------
 
 //collect input and generate password
 function generatePassword() {
+  //obtain password criteria from user
   getCriteria();
 
-  //create and instantiate variables
   password = "";
 
-  //populate charPool with all valid character types based on criteria
+  populateCharPool();
+
+  password = buildPassword();
+
+  return (password);
+}
+
+// ---------------------------------------------------------------------------------------
+
+//determine criteria for password creation
+function getCriteria() {
+  numChar = prompt("How many characters would you like the password to be? (8-128)");
+  includeSpecial = confirm("Include special characters?");
+  includeNumber = confirm("Include numbers?");
+  includeUpper = confirm("Include uppercase letters?");
+  includeLower = confirm("Include Lowercase Letters?");
+}
+
+// ---------------------------------------------------------------------------------------
+
+//populate charPool with all valid character types based on criteria
+function populateCharPool() {
+
+  charPool = [];
+
   if (includeSpecial) {
     charPool = charPool.concat(specialChars);
   }
@@ -49,23 +76,11 @@ function generatePassword() {
   if (includeLower) {
     charPool = charPool.concat(lettersDown);
   }
-
-  //create password from eligable chars
-  password = buildPassword();
-
-  return (password);
 }
 
-//determine criteria for password creation
-function getCriteria() {
-  numChar = prompt("How many characters would you like the password to be? (8-128)");
-  includeSpecial = confirm("Include special characters?");
-  includeNumber = confirm("Include numbers?");
-  includeUpper = confirm("Include uppercase letters?");
-  includeLower = confirm("Include Lowercase Letters?");
-}
+// ---------------------------------------------------------------------------------------
 
-
+//create password from eligable chars
 function buildPassword() {
   var pass = "";
 
@@ -80,6 +95,8 @@ function buildPassword() {
   ensureCriteria(pass);
   return (pass);
 }
+
+// --------------------------------------------------------------------------------------
 
 //ensures all criteria are met
 function ensureCriteria(pass) {
