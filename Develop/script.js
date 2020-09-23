@@ -1,13 +1,16 @@
 //declaration of global variables
 var numChar = 0;
+
 var includeSpecial = false;
 var includeUpper = false;
 var includeLower = false;
 var includeNumber = false;
+
 var lettersUp = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var lettersDown = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var specialChars = ["!", "?", "@", "#", "$", "%", "^", "&", "*"];
 var nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 var charPool = [];
 
 // Assignment Code
@@ -19,7 +22,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // ---------------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ function getCriteria() {
     alert("Must be between 8 and 128!!!");
     return getCriteria();
   }
-  
+
   includeSpecial = confirm("Include special characters?");
   includeNumber = confirm("Include numbers?");
   includeUpper = confirm("Include uppercase letters?");
@@ -99,11 +101,10 @@ function buildPassword() {
   }
 
   if (ensureCriteria(pass)) {
-    return (pass);  
+    return (pass);
   } else {
-    return  buildPassword();
+    return buildPassword();
   }
-  
 }
 
 // --------------------------------------------------------------------------------------
@@ -151,13 +152,9 @@ function ensureCriteria(pass) {
   }
 
   if (!spec || !num || !up || !down) {
-    console.log("Fail");
-    console.log(pass);
     return false;
-    //buildPassword();
   } else {
     return true;
   }
-
 }
 
