@@ -92,7 +92,7 @@ function populateCharPool() {
 function buildPassword() {
   var pass = "";
 
-  for (var i = 0; i < numChar - 1; i++) {
+  for (var i = 0; i < numChar; i++) {
     var randomIndex = Math.floor(Math.random() * charPool.length)
 
     var tempChar = charPool[randomIndex];
